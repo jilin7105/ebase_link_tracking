@@ -1,0 +1,30 @@
+appType: Kafka #"HTTP", "gRPC", "Task", "Kafka"
+logLevel: 6
+logFile: "ebaselinkTracking.log"
+servies_name: test
+
+kafkaConsumers:
+  - name: "linkTrackingKafka"
+    brokers: ["172.16.179.206:9092"]
+    topics: ["auto_LinkTracking"]
+    groupID: auto_LinkTracking_1
+    autoOffsetReset: earliest  # 开始消费的位置，可能的值包括'earliest'、'latest'、'none'
+    maxWaitTime: 3000  # 从Kafka获取记录的最大等待时间（毫秒）
+    sessionTimeout: 6000  # 消费者组会话的超时时间（毫秒）
+    heartbeatInterval: 300  # 心跳间隔时间（毫秒）
+es:
+  - name: "linkTracking"
+    hosts: ["http://172.16.179.208:9200"] # ES集群的地址列表
+    user: "elastic"
+    pass: "654321"
+    cloudid: ""
+    apiKey: ""
+    type: "host"  # 类型默认 host  使用用户名密码登录  cloud 使用 cloudid+apiKey 登录
+    version: "v7"
+
+
+
+
+linkTracking:
+  is_open: false  #是否开启链路追踪
+  kafka_producer_name: linkTrackingKafka #对应推送 kafka 地址

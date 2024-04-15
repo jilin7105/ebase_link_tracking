@@ -1,0 +1,30 @@
+appType: Kafka #"HTTP", "gRPC", "Task", "Kafka"
+logLevel: 6
+logFile: "ebaselinkTracking.log"
+servies_name: test
+
+kafkaConsumers:
+  - name: "linkTrackingKafka"
+    brokers: []  # kafka地址，所有系统共用  其他不要修改
+    topics: ["auto_LinkTracking"]
+    groupID: auto_LinkTracking_1
+    autoOffsetReset: earliest
+    maxWaitTime: 3000
+    sessionTimeout: 6000
+    heartbeatInterval: 300
+es:
+  - name: "linkTracking" # 不要修改
+    hosts: [] # ES集群的地址列表
+    user: ""
+    pass: ""
+    cloudid: ""
+    apiKey: ""
+    type: "host"  # 类型默认 host  使用用户名密码登录  cloud 使用 cloudid+apiKey 登录
+    version: "v7"
+
+
+
+
+linkTracking:
+  is_open: false  #是否开启链路追踪
+  kafka_producer_name: linkTrackingKafka #对应推送 kafka 地址
